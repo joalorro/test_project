@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { LoggerMiddleware } from 'common/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ExampleModule } from './example/example.module';
+import { ExampleModule } from './examples/examples.module';
 
 @Module({
   imports: [ExampleModule],
@@ -11,8 +11,6 @@ import { ExampleModule } from './example/example.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer  
-      .apply(LoggerMiddleware)
-      .forRoutes("*")
+    consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }
