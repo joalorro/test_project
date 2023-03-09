@@ -1,5 +1,4 @@
 import { Body, Controller, Get, ParseArrayPipe, Post } from '@nestjs/common';
-import { PostExamplesDto } from 'src/dtos/post-examples.dto';
 import { ExamplesService } from './examples.service';
 
 @Controller('examples')
