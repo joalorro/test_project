@@ -1,9 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, Scope } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LoggerMiddleware } from 'src/common/logger.middleware';
+import { LoggerMiddleware } from 'src/middlewares/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoggingInterceptor } from './common/logging.interceptor';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ExampleModule } from './examples/examples.module';
 
 @Module({
@@ -14,6 +14,7 @@ import { ExampleModule } from './examples/examples.module';
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
+      scope: Scope.REQUEST,
     },
   ],
 })
