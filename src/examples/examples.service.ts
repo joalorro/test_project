@@ -1,9 +1,12 @@
-import { Get, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ExamplesService {
-  @Get()
   getExamples() {
     return [1, 2, 3];
+  }
+
+  postExamples(data: number[]): number[] {
+    return data.map((num) => num + 1);
   }
 }
