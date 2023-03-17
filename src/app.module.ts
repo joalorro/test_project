@@ -6,11 +6,13 @@ import { AppService } from './app.service';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ExampleModule } from './examples/examples.module';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { ChatGateway } from './gateways/chat.gateway';
 
 @Module({
   imports: [ExampleModule],
   controllers: [AppController],
   providers: [
+    ChatGateway,
     AppService,
     {
       provide: APP_INTERCEPTOR,
