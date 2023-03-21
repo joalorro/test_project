@@ -1,4 +1,10 @@
-import { MiddlewareConsumer, Module, NestModule, Scope } from '@nestjs/common';
+import {
+  CacheModule,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  Scope,
+} from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggerMiddleware } from 'src/middlewares/logger.middleware';
 import { AppController } from './app.controller';
@@ -7,9 +13,15 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ExampleModule } from './examples/examples.module';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { ChatGateway } from './gateways/chat.gateway';
+import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
-  imports: [ExampleModule],
+  imports: [
+    ExampleModule,
+    CacheModule.register({
+      store: redisStore,
+    }),
+  ],
   controllers: [AppController],
   providers: [
     ChatGateway,
