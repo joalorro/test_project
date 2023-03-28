@@ -7,6 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConnectRequestDto } from './dtos/connect-request.dto';
 
 @Controller()
 export class AppController {
@@ -21,13 +22,23 @@ export class AppController {
   }
 
   @Post('/connect')
-  async connect(@Body() data): Promise<string> {
+  async connect(@Body() data: ConnectRequestDto): Promise<string> {
     console.log('DATA', data);
-    let users = (await this.cacheManager.get('users')) || [];
+    let users = await this.cacheManager.get('users');
     console.log('users', users);
-    await this.cacheManager.set('users', [data, ...users]);
-    users = await this.cacheManager.get('users');
-    console.log('added', users);
+    if (users) {
+      users = JSON.parse(users);
+    } else {
+      users = [];
+    }
+
+    users.push(data.username);
+    users = JSON.stringify(users);
+
+    console.log('stringified users', users);
+
+    await this.cacheManager.set('users', users);
+
     return 'yes hello iam briam';
   }
 }

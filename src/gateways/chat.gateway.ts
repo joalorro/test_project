@@ -37,7 +37,7 @@ export class ChatGateway {
     let storedPoints = await this.cacheManager.get('paint');
     if (storedPoints) {
       storedPoints = JSON.parse(storedPoints);
-    } else if (!storedPoints) {
+    } else {
       storedPoints = [];
     }
 
